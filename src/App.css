@@ -1,3 +1,87 @@
-@import "tailwindcss";
-@plugin "daisyui";
+/* ==========================================================================
+   1. MODO CLARO (Inspirado no Tema Garden do DaisyUI)
+   ========================================================================== */
+:root {
+  --bg-principal: #f4fbf7;      /* Verde-gelo bem clarinho, quase branco (fresco e limpo) */
+  --bg-card: #e6f4ea;           /* Sálvia suave para destacar os painéis */
+  --texto: #1e3a2b;             /* Verde-oliva escuro para altíssimo contraste de leitura */
+  --borda: #c2e2ce;             /* Borda sutil de folhagem */
+  --botao: #5c7f67;             /* Verde-musgo elegante */
+  --botao-texto: #ffffff;       /* Texto branco no botão para contrastar com o verde */
+  --botao-hover: #ecf4e7;       /* Tom creme/folha claro para o efeito hover */
+  --botao-hover-texto: #1e3a2b;
+}
 
+/* ==========================================================================
+   2. MODO ESCURO (Inspirado no Tema Dark Sofisticado)
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-principal: #0f172a;      /* Azul-escuro profundo (Slate 900) */
+  --bg-card: #1e293b;           /* Grafite azulado (Slate 800) */
+  --texto: #f8fafc;             /* Branco gelo para leitura perfeita */
+  --borda: #334155;             /* Borda grafite discreta */
+  --botao: #334155;             /* Botão cinza sóbrio */
+  --botao-texto: #f8fafc;
+  --botao-hover: #38bdf8;       /* Azul ciano tecnológico para o hover */
+  --botao-hover-texto: #000000;
+}
+
+/* ==========================================================================
+   3. APLICAÇÃO DOS ESTILOS
+   ========================================================================== */
+   
+/* Estilo Base do Corpo da Página */
+:root, [data-theme="dark"] {
+  background-color: var(--bg-principal);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container Principal */
+.min-h-screen {
+  background-color: var(--bg-principal) !important;
+}
+
+/* TopBar / Logo */
+.bg-base-100 {
+  background-color: var(--bg-card) !important;
+  border-bottom: 1px solid var(--borda);
+}
+
+/* Painel de Controle (Header / Sala de Estar) */
+header {
+  background-color: var(--bg-card) !important;
+  color: var(--texto) !important;
+  border: 1px solid var(--borda) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Menu Lateral (FAB) e Botões de Cômodos */
+.fab .btn, .fab button {
+  background-color: var(--botao) !important;
+  color: var(--botao-texto) !important;
+  border: 1px solid var(--borda) !important;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Efeito Hover nos Botões */
+.fab .btn:hover, .fab button:hover {
+  background-color: var(--botao-hover) !important;
+  color: var(--botao-hover-texto) !important;
+  border-color: var(--borda) !important;
+}
+
+/* Checkboxes para acompanhar o tom do tema */
+input[type="checkbox"] {
+  accent-color: var(--botao);
+}
+
+/* Rodapé */
+footer {
+  background-color: var(--bg-principal);
+  color: var(--texto);
+  opacity: 0.8;
+  border-top: 1px solid var(--borda);
+}

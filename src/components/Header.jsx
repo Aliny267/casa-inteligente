@@ -1,13 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Thermometer, Bed, CookingPot, Gear, PlantIcon, BathtubIcon  } from "@phosphor-icons/react";
 
 function Header() {
-  const [temperature] = useState(25);
-  const [theme, setTheme] = useState("garden");
+  /* ALTERADO: agora temos setTemperature para atualizar dinamicamente */
+  const [temperature, setTemperature] = useState(25);
+  const [theme, setTheme] = useState("cyberpunk");
+
+  /* ALTERADO: useRef para guardar id do timeout e evitar vazamentos */
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
+  /* ALTERADO: função que atualiza a temperatura e agenda o próximo setTimeout a cada 5s
+     Gera valores entre 16.0 e 30.0 com uma casa decimal */
+  useEffect(() => {
+    let mounted = true;
+
+    function scheduleNext() {
+      // gera nova temperatura simulada (16.0 a 30.0) com uma casa decimal
+      const novaTemp = Number((16 + Math.random() * 14).toFixed(1));
+      if (mounted) setTemperature(novaTemp);
+
+      // agenda próxima atualização em 5000ms (5 segundos)
+      timeoutRef.current = setTimeout(scheduleNext, 5000);
+    }
+
+    // inicia o ciclo
+    scheduleNext();
+
+    // cleanup ao desmontar: cancela timeout e marca como não montado
+    return () => {
+      mounted = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, []); // executa apenas uma vez ao montar
 
   return (
     <header className="grid grid-cols-4 items-center 
@@ -22,7 +53,7 @@ function Header() {
       {/* Coluna 2: temperatura */}
       <div className="flex items-center justify-center gap-1 text-sm md:text-base">
         <Thermometer size={20} />
-        <span>{temperature}°C</span>
+        <span>{temperature.toFixed(1)}°C</span>
       </div>
 
       {/* Coluna 3: controlador de tema */}
@@ -31,7 +62,7 @@ function Header() {
           <input 
             type="checkbox" 
             checked={theme === "dark"} 
-            onChange={() => setTheme(theme === "garden" ? "dark" : "garden")} 
+            onChange={() => setTheme(theme === "cyberpunk" ? "dark" : "cyberpunk")} 
           />
           
           <svg className="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

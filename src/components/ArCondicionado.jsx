@@ -41,12 +41,19 @@ function ArCondicionado() {
         <div className="mb-4">
           <label className="block mb-2">Temperatura: {temperatura}°C</label>
           <div className="flex gap-2">
+
+            <button className="btn btn-sm btn-accent" onClick={diminuirTemp}>
+              -
+                   
+            </button>
+
+
             <button className="btn btn-sm btn-accent" onClick={aumentarTemp}>
               +
             </button>
-            <button className="btn btn-sm btn-accent" onClick={diminuirTemp}>
-              -
-            </button>
+
+
+            
           </div>
         </div>
       )}

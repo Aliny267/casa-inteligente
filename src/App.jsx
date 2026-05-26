@@ -20,14 +20,14 @@ function App() {
       </div>
       
 
-      <main className="flex-1 px-4 mb-8"> 
-         <div className="grid grid-cols-4 sm:grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="px-4 mb-8"> 
+         <div className="flex flex-row gap-6 flex-wrap">
           <IluminacaoPrincipal />
           <Efeitos />
           <ArCondicionado />
           <Cortinas />
         </div>
-      </main>
+      </div>
 
       <Footer />
 
